@@ -1,0 +1,61 @@
+/*
+Here comes the text of your license
+Each line should be prefixed with 
+*/
+/* 
+    Created on : Feb 2, 2017, 9:56:13 AM
+    Author     : Scott Muth <scottdotm.com>
+*/
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.greeting{
+     padding-top: 100px;
+}
+.footer {
+  position: absolute;
+  bottom: 0%;
+  width: 100%;
+  padding-top: 20px;
+  /* Set the fixed height of the footer here */
+/*  height: 60px;*/
+/*  line-height: 60px;  Vertically center the text there */
+  background-color: lightgrey;
+}
+/* Mixin itself*/
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;  
+  }
+}
+
+/* Usage as a mixin*/          
+.element {
+  @include clearfix;
+}
+
+@media (max-width: 978px) {
+    .container {
+      padding:0;
+      margin:0;
+    }
+
+    body {
+      padding:0;
+    }
+
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+      margin-left: 0;
+      margin-right: 0;
+      margin-bottom:0;
+    }
+}
+
