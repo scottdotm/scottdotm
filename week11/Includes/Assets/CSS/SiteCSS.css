@@ -1,0 +1,28 @@
+/* 
+    Created on : Apr 10, 2017, 12:47:44 AM
+    Author     : Scott Muth <scottdotm.com>
+*/
+@font-face{
+     font-family: myFirstFont;
+     src: url(../Fonts/FerroRosso.ttf);
+}
+body{
+     background-image:url(../Images/Northwind.jpg);
+     /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.navbar-brand,.FerroFont{
+     font-family: myFirstFont;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+}
+canvas {
+    position: absolute;
+}
