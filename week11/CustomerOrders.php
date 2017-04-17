@@ -13,11 +13,12 @@ $customer = mysqli_fetch_array($results)
 <!DOCTYPE html>
 <html>
      <?php
+     $pagename = basename(__FILE__, '.php'); 
      require('Includes/Header.html');
      ?>
      <body>
           <?php
-          require('Includes/Navbar.html');
+          require('Includes/Navbar.html.php');
           ?>
           <div class="container">
 

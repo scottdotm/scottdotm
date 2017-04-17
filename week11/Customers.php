@@ -10,15 +10,15 @@ and open the template in the editor.
      ?>
      <body>
           <?php
+          $pagename = basename(__FILE__, '.php'); 
           //Navbar include
-          require('Includes/Navbar.html');
+          require('Includes/Navbar.html.php');
           // Northwind database connection
           require('Includes/Northwind.DB.php');
           //create query, ALWAYS use double quotes
           $sql = "SELECT c.CustomerID, c.CompanyName, c.ContactName, c.ContactTitle, c.Address, c.City, c.Region, c.PostalCode, c.Country, c.Phone, c.Fax, c.Region
                   FROM `customers` AS c
                   ORDER BY c.ContactName";
-
           //execute query
           $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
           ?>
@@ -28,13 +28,11 @@ and open the template in the editor.
                     <table class="table tabel-bordered table-hover table-inverse">
                          <thead>
                               <tr>
-                                   
                                    <th>Contact Name</th>
                                    <th>Company Name</th>
                                    <th>City</th>
                                    <th>Region</th>
                                    <th>Country</th>
-                                   
                               </tr>
                          </thead>
                          <tbody>
@@ -50,7 +48,6 @@ and open the template in the editor.
                                    echo "<td>" . $row['City'] . "</td>";
                                    echo "<td>" . $row['Region'] . "</td>";
                                    echo "<td>" . $row['Country'] . "</td>";
-                                   
                                    echo "</tr>";
                               }
                               ?>

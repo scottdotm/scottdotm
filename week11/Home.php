@@ -12,7 +12,8 @@
      ?>
      <body class="backgroundImage">
                <?php
-               require('Includes/Navbar.html');
+               $pagename = basename(__FILE__, '.php'); 
+               require('Includes/Navbar.html.php');
                ?>
                <div class='FerroFont text-center' style="font-size: 250px;">Northwind</div>
                <canvas id="cvs">

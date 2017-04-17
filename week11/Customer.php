@@ -26,7 +26,8 @@ and open the template in the editor.
      ?>
      <body>
           <?php
-          require('Includes/Navbar.html');
+          $pagename = basename(__FILE__, '.php'); 
+          require('Includes/Navbar.html.php');
           ?>
           <div class="container">
                <div class="card">

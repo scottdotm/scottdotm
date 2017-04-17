@@ -11,7 +11,8 @@ and open the template in the editor.
     <body>
         <?php
         // Northwind/Products database connection and Navbar
-        require('Includes/Navbar.html');
+        $pagename = basename(__FILE__, '.php'); 
+        require('Includes/Navbar.html.php');
         require('Includes/Northwind.DB.php');
         //Default sorting
         $sort=isset($_GET['sort']) ? $_GET['sort'] : 'ProductName';
