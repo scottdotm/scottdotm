@@ -11,12 +11,12 @@
      require('Includes/Header.html');
      ?>
      <body class="backgroundImage">
-               <?php
-               $pagename = basename(__FILE__, '.php'); 
-               require('Includes/Navbar.html.php');
-               ?>
-               <div class='FerroFont text-center' style="font-size: 250px;">Northwind</div>
-               <canvas id="cvs">
+          <?php
+          $pagename = basename(__FILE__, '.php');
+          require('Includes/Navbar.html.php');
+          ?>
+          <div class='FerroFont text-center' style="font-size: 250px;">Northwind</div>
+          <canvas id="cvs">
                <?php
                require('Includes/Footer.html');
                ?>

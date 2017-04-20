@@ -4,7 +4,7 @@ require_once('Includes/Northwind.DB.php');
 $customerID = isset($_GET['customerID']) ? $_GET['customerID'] : 'HILAA';
 $orderID = isset($_GET['orderID']) ? $_GET['orderID'] : '10486';
 //Customer Query
-$sql = "SELECT c.CompanyName, c.ContactName, c.Address, c.Country, c.Fax, c.Phone, c.PostalCode FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID JOIN `order_details` AS od ON o.OrderID = od.OrderID JOIN `products`AS p ON od.ProductID = p.ProductID WHERE c.CustomerID = '$customerID' && od.OrderID='$orderID' ORDER BY p.ProductName";
+$sql = "SELECT c.City, c.Region, c.CompanyName, c.ContactName, c.Address, c.Country, c.Fax, c.Phone, c.PostalCode FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID WHERE c.CustomerID = '$customerID'";
 //Execute Customer Query
 $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
 //Fetch Customer Rows
@@ -51,10 +51,26 @@ $customer = mysqli_fetch_array($results)
                                         </p>
                                    </div>
                                    <div class='col'>
+                                        <label>City</label>
+                                        <br>
+                                        <p class='lead'>
+                                             <?= $customer['City'] ?>
+                                        </p>
+                                   </div>
+                              </div>
+                              <div class='row'>
+                                   <div class='col'>
                                         <label>Country</label>
                                         <br>
                                         <p class='lead'>
                                              <?= $customer['Country'] ?>
+                                        </p>
+                                   </div>
+                                   <div class='col'>
+                                        <label>Region</label>
+                                        <br>
+                                        <p class='lead'>
+                                             <?= $customer['Region'] ?>
                                         </p>
                                    </div>
                               </div>
@@ -92,7 +108,7 @@ $customer = mysqli_fetch_array($results)
                          <tbody>
                               <?php
                               //OrderDetails Query
-                              $sql = "SELECT p.ProductName, od.UnitPrice, od.Quantity, p.QuantityPerUnit FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID JOIN `order_details` AS od ON o.OrderID = od.OrderID JOIN `products`AS p ON od.ProductID = p.ProductID WHERE c.CustomerID = '$customerID' && od.OrderID='$orderID' ORDER BY p.ProductName";
+                              $sql = "SELECT s.CompanyName, p.ProductName, od.UnitPrice, od.Quantity, p.QuantityPerUnit FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID JOIN `order_details` AS od ON o.OrderID = od.OrderID JOIN `products`AS p ON od.ProductID = p.ProductID JOIN shippers AS s on o.ShipVia = s.ShipperID WHERE c.CustomerID = '$customerID' && od.OrderID='$orderID' ORDER BY p.ProductName";
                               //Execute OrderDetails Query
                               $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
                               //output results
@@ -109,11 +125,13 @@ $customer = mysqli_fetch_array($results)
                                    echo "<td>" . $row['Quantity'] . "</td>";
                                    echo "<td>" . $row['QuantityPerUnit'] . "</td>";
                                    echo "<td>" . money_format('$%i', $lineTotal) . "</td>";
+                                   
                                    echo "</tr>";
                                    $total = ($total + $lineTotal);
                               }
+                              
                               ?>
-                              <tr style='background-color:black;'>
+                              <tr style='background-color: #B3B3B3;'>
                                    <td></td>
                                    <td></td>
                                    <td></td>
@@ -121,28 +139,39 @@ $customer = mysqli_fetch_array($results)
                                    <td></td>
                               </tr>
                               <tr>
-                                   <td><p>Total Products: <?= mysqli_num_rows($results) ?></p></td>
-                                   <td><p><?= money_format("Total price $%i", $total); ?></p></td>
+                                   <th><p>Total Products: <?= mysqli_num_rows($results) ?></p></th>
+                                   <th colspan="4"><p class="text-right"><?= money_format("Price Before Shipping : $%i", $total); ?></p></th>
+                              </tr>
+                              <?php
+                              //Execute Order Query
+                              $sql = "SELECT s.CompanyName, o.ShippedDate, o.Freight, o.ShipRegion, o.ShipName, o.ShipAddress, o.ShipCity, o.ShipCountry, o.ShipPostalCode, o.ShipRegion FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID JOIN `order_details` AS od ON o.OrderID = od.OrderID JOIN shippers AS s ON o.ShipVia = s.ShipperID WHERE c.CustomerID = '$customerID' && od.OrderID='$orderID'";
+                              $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
+                              $order = mysqli_fetch_array($results);
+                              ?>
+                              <tr>
+                                   <th colspan="5"><p class="text-right"><?= money_format("Freight Price : $%i",$order['Freight']) ?></p></th>
+                              </tr>
+                              <tr>
+                                   <th colspan="5"><p class="text-right"><?php $orderTotal=$order['Freight']+$total; echo money_format("Total Amount Due : $%i",$orderTotal); ?></p></th>
                               </tr>
                          </tbody>
                     </table>
                </div>
-               <?php
-               //Execute Order Query
-               $sql = "SELECT o.ShipRegion, o.ShipName, o.ShipAddress, o.ShipCity, o.ShipCountry, o.ShipPostalCode, o.ShipRegion FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID JOIN `order_details` AS od ON o.OrderID = od.OrderID JOIN `products`AS p ON od.ProductID = p.ProductID WHERE c.CustomerID = '$customerID' && od.OrderID='$orderID' ORDER BY p.ProductName";
-               $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
-               $order = mysqli_fetch_array($results);
-               ?>
                <div class='card'>
                     <div class='card-block col'>
                          <div class="row">
-                              <h1>Shipment Information</h1>
+                              <h1 class="card-title">Shipment Information</h1>
                          </div>
                          <div class="row">
                               <div class='col'>
                                    <label>Shipment Name</label>
                                    <br>
                                    <p class='lead'><?= $order['ShipName'] ?></p>
+                              </div>
+                              <div class='col'>
+                                   <label>Shipped By</label>
+                                   <br>
+                                   <p class='lead'><?= $order['CompanyName'] ?></p>
                               </div>
                          </div>
                          <div class="row">
@@ -157,20 +186,20 @@ $customer = mysqli_fetch_array($results)
                                    <p class='lead'><?= $order['ShipCity'] ?></p>
                               </div>
                               <div class='col'>
-                                   <label>Shipment Region</label>
-                                   <br>
-                                   <p class='lead'><?= $order['ShipRegion'] ?></p>
+                                   <label>Shipment Postal Code</label>
+                                   <p class='lead'><?= $order['ShipPostalCode'] ?></p>
                               </div>
                          </div>
                          <div class="row">
                               <div class='col'>
+                                   <label>Shipment Region</label>
+                                   <br>
+                                   <p class='lead'><?= $order['ShipRegion'] ?></p>
+                              </div>
+                              <div class='col'>
                                    <label>Shipment Country</label>
                                    <br>
                                    <p class='lead'><?= $order['ShipCountry'] ?></p>
-                              </div>
-                              <div class='col'>
-                                   <label>Shipment Postal Code</label>
-                                   <p class='lead'><?= $order['ShipPostalCode'] ?></p>
                               </div>
                          </div>
                          <div class="card-text text-right">

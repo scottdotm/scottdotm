@@ -1,8 +1,9 @@
 <?php
+//Northwind Database Connection
 require_once('Includes/Northwind.DB.php');
-
+//Set default ProductID
 $productID = isset($_GET['ProductID']) ? $_GET['ProductID'] : '1';
-
+//Product Query
 $sql = "SELECT p.ProductID, p.ProductName, s.CompanyName, c.CategoryName, p.QuantityPerUnit, p.UnitPrice, p.UnitsInStock, p.UnitsOnOrder
 FROM products AS p
 JOIN suppliers AS s ON p.SupplierID = s.SupplierID
@@ -10,18 +11,15 @@ JOIN categories AS c ON p.CategoryID = c.CategoryID
 WHERE ProductID = '$productID'
 ORDER BY ProductName DESC
 LIMIT 1";
-
+//Execute Product Query
 $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
-
+//Gather Product Query Records
 $product = mysqli_fetch_array($results);
 ?>
-
-
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+Product Information
+PHP1 : Project #2
 -->
 <html>
      <?php
@@ -32,7 +30,7 @@ and open the template in the editor.
           $pagename = basename(__FILE__, '.php'); 
           require('Includes/Navbar.html.php');
           ?>
-          <div class="container">
+          <div class="container-fluid">
                <div class="card">
                     <h1 class="card-title FerroFont text-center" style="font-size: 150px;">Product Information</h1>
                     <div class="card-block">
@@ -73,6 +71,9 @@ and open the template in the editor.
                                    <p class="lead"><?= $product['UnitsInStock'] ?></p>
                               </div>
                          </div>
+                    </div>
+                    <div class="card-text text-right">
+                         <a href='Products.php'><button type="button" class="btn btn-danger btn-lg">Back</button></a>
                     </div>
                </div>
           </div>

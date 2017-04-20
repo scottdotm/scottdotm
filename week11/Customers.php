@@ -23,7 +23,7 @@ and open the template in the editor.
           $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
           ?>
           <div class='FerroFont text-center' style="font-size: 150px;">Northwind Customers</div>
-          <div class="container">
+          <div class="container-fluid">
                <div class="row">
                     <table class="table tabel-bordered table-hover table-inverse">
                          <thead>

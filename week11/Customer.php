@@ -114,6 +114,9 @@ and open the template in the editor.
                          require('Includes/Footer.html');
                          ?>
                     </div>
+                    <div class="card-text text-right">
+                              <a href='Customers.php'><button type="button" class="btn btn-danger btn-lg">Back</button></a>
+                         </div>
                </div>
           </div>
      </body>
