@@ -27,7 +27,7 @@ PHP1 : Project #2
      ?>
      <body>
           <?php
-          $pagename = basename(__FILE__, '.php'); 
+          $pagename = basename(__FILE__, '.php');
           require('Includes/Navbar.html.php');
           ?>
           <div class="container-fluid">

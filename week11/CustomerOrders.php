@@ -4,7 +4,7 @@ require_once('Includes/Northwind.DB.php');
 $customerID = isset($_GET['customerID']) ? $_GET['customerID'] : 'HILAA';
 $orderID = isset($_GET['orderID']) ? $_GET['orderID'] : '10486';
 //Customer Query
-$sql = "SELECT c.City, c.Region, c.CompanyName, c.ContactName, c.Address, c.Country, c.Fax, c.Phone, c.PostalCode FROM `customers` AS c JOIN `orders` AS o ON c.CustomerID = o.CustomerID WHERE c.CustomerID = '$customerID'";
+$sql = "SELECT c.City, c.Region, c.CompanyName, c.ContactName, c.Address, c.Country, c.Fax, c.Phone, c.PostalCode FROM `customers` AS c WHERE c.CustomerID = '$customerID'";
 //Execute Customer Query
 $results = mysqli_query($db, $sql) or die("Error in query: " . mysqli_error($db));
 //Fetch Customer Rows
@@ -13,7 +13,7 @@ $customer = mysqli_fetch_array($results)
 <!DOCTYPE html>
 <html>
      <?php
-     $pagename = basename(__FILE__, '.php'); 
+     $pagename = basename(__FILE__, '.php');
      require('Includes/Header.html');
      ?>
      <body>
@@ -125,11 +125,10 @@ $customer = mysqli_fetch_array($results)
                                    echo "<td>" . $row['Quantity'] . "</td>";
                                    echo "<td>" . $row['QuantityPerUnit'] . "</td>";
                                    echo "<td>" . money_format('$%i', $lineTotal) . "</td>";
-                                   
+
                                    echo "</tr>";
                                    $total = ($total + $lineTotal);
                               }
-                              
                               ?>
                               <tr style='background-color: #B3B3B3;'>
                                    <td></td>
@@ -149,10 +148,11 @@ $customer = mysqli_fetch_array($results)
                               $order = mysqli_fetch_array($results);
                               ?>
                               <tr>
-                                   <th colspan="5"><p class="text-right"><?= money_format("Freight Price : $%i",$order['Freight']) ?></p></th>
+                                   <th colspan="5"><p class="text-right"><?= money_format("Freight Price : $%i", $order['Freight']) ?></p></th>
                               </tr>
                               <tr>
-                                   <th colspan="5"><p class="text-right"><?php $orderTotal=$order['Freight']+$total; echo money_format("Total Amount Due : $%i",$orderTotal); ?></p></th>
+                                   <th colspan="5"><p class="text-right"><?php $orderTotal = $order['Freight'] + $total;
+                              echo money_format("Total Amount Due : $%i", $orderTotal); ?></p></th>
                               </tr>
                          </tbody>
                     </table>
