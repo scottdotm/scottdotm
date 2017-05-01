@@ -1,0 +1,10 @@
+<?php
+
+/**
+ * Description of DB
+ * create database connection
+ * @author Scott Muth <scottdotm.com>
+ */
+
+//   				server      , username  , password , database
+$db = @mysqli_connect('localhost', 'smuth4', '000434994', 'smuth4') or die("Unable to connect to database");

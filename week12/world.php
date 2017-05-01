@@ -6,7 +6,7 @@
 	session_start();
 
 	// add stuff to session
-	$_SESSION['username'] = 'tkowalch';
+	$_SESSION['username'] = 'smuth4';
 
 	// get something from the session
 	$username = isset($_SESSION['username']) ? $_SESSION['username'] : false;
