@@ -33,7 +33,7 @@
           <?php
           require('Includes/Navbar.html.php');
           ?>
-          <table class="table table-hover">
+          <table class="table table-hover table-inverse bg-primary">
                <thead>
                     <tr>
                          <th>#</th>
