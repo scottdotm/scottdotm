@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * THIS FILE SHOULD NOT BE PUBLICLY AVALIBLE.
  * Description of DB
  * create database connection
  * @author Scott Muth <scottdotm.com>

@@ -2,6 +2,14 @@
     Created on : May 1, 2017, 2:19:15 PM
     Author     : Scott Muth <scottdotm.com>
 */
+@font-face{
+     font-family: myFirstFont;
+     src: url(../Fonts/FerroRosso.ttf);
+}
+@font-face{
+     font-family: mySecondFont;
+     src: url(../Fonts/goodtimesrg.ttf);
+}
 
 /* Sticky footer styles
 -------------------------------------------------- */
@@ -10,8 +18,17 @@ html {
   min-height: 100%;
 }
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+     /* Margin bottom by footer height */
+     margin-bottom: 60px;
+     background-image:url(../Images/code-459070_1920.jpg);
+     /* Create the parallax scrolling effect */
+     background-attachment: fixed;
+     background-position: center;
+     background-repeat: no-repeat;
+     background-size: cover;
+}
+.goodTimeFont{
+     font-family: mySecondFont;
 }
 .footer {
   position: absolute;
@@ -20,4 +37,14 @@ body {
   /* Set the fixed height of the footer here */
   height: 60px;
   background-color: #f5f5f5;
+  padding:20px;
+}
+.navbar-brand,.FerroFont{
+     font-family: mySecondFont;
+}
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
 }
